@@ -6,7 +6,7 @@
   "author": "Benoit Lamonica",
   "license": "MIT",
   "scripts": {
-    "bot": "node app"
+    "start": "node app.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
