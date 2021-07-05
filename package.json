@@ -1,13 +1,17 @@
 {
   "name": "bot_lol",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Un bot de lol crée pour Discord par Benoit Lamonica",
   "main": "app.js",
   "author": "Benoit Lamonica",
   "license": "MIT",
+  "scripts": {
+    "bot": "node app"
+  },
   "dependencies": {
     "axios": "^0.21.1",
-    "discord": "^0.8.2",
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1"
   }
 }
