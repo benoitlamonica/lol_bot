@@ -6,6 +6,7 @@
   "author": "Benoit Lamonica",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "discord": "^0.8.2",
     "express": "^4.17.1"
   }
