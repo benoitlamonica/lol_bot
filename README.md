@@ -1,6 +1,6 @@
 # LOL Discord Bot
 
-[![version](https://img.shields.io/badge/version-0.0.1-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.0.1-green.svg)](https://semver.org)
 
 ### This bot is used for characters info and more in the future.
 
