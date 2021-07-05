@@ -8,4 +8,4 @@ To add the bot to your discord [click here](https://discord.com/api/oauth2/autho
 
 ### How does this bot works ?
 
-It's very simple, actually you just have to write `!{charactername}` to get some information about him. Some others features will come next :blush:
+It's very simple, actually you just have to write `!charactername` to get some information about him. Some others features will come next :blush:
