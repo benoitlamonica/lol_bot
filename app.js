@@ -13,7 +13,7 @@ const TOKEN = process.env.TOKEN;
 bot.login(TOKEN);
 
 app.listen(PORT, () => {
-    console.log(`Running on port ${port}`);
+    console.log(`Running on port ${PORT}`);
 
     bot.on('ready', () => {
         console.log(`Logged as ${bot.user.tag} !`);
