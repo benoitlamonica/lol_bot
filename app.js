@@ -5,14 +5,14 @@ const { StringHelper } = require('./modules/StringHelper');
 const { ApiHandler } = require('./modules/ApiHandler');
 const bot = new Discord.Client();
 const app = Express();
-const port = 1991;
+const PORT = process.env.PORT;
 const TOKEN = process.env.TOKEN;
 
 
 //Login to Discord API
 bot.login(TOKEN);
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(`Running on port ${port}`);
 
     bot.on('ready', () => {
