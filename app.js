@@ -20,15 +20,15 @@ app.listen(PORT, () => {
     })
     bot.on('message', msg => {
         if (msg.author.bot) return;
-        if (!msg.content.startsWith("!")) return;
-        let char = StringHelper.capitaliseFirstLetter(msg.content.slice(1, msg.content.length));
-        ApiHandler.sendProperMessage({ msg, char });
+        if (!msg.content.startsWith("!lb")) return;
+        let cmd = msg.content.split(" ")[1];
+        if (cmd === "all") {
+            ApiHandler.sendAllChar(msg);
+            return;
+        }
+        let char = StringHelper.capitaliseFirstLetter(cmd);
+        ApiHandler.sendProperMessage(msg, char);
     })
 
-})
-
-app.get('/', (req, res) => {
-    res.send('Hello World !');
-    console.log(req);
 })
 
