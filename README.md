@@ -1,6 +1,6 @@
 # LOL Discord Bot
 
-[![version](https://img.shields.io/badge/version-0.0.3-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.1.0-green.svg)](https://semver.org)
 
 ### This bot is used for characters info and more in the future.
 
@@ -12,8 +12,16 @@ Here's a list of command actually usable :
 
 | Commands                   | Description                   |
 | -------------------------- | ----------------------------- |
-| `!lb find <charactername>` | Find the character in Lol API |
-| `!lb all`                  | Get all character names       |
 | `!lb help`                 | Get a list of all commands    |
+| `!lb all`                  | Get all character names       |
+| `!lb find <charactername>` | Find the character in Lol API |
+| `!lb sum <summonername>`   | Get summoner info             |
 
 Some others features will come next :blush:
+
+### Future feature (that i hope to achieve)
+
+- Stats for each champion (Win rate / Ratio)
+- Best runes by champion regards to all players (like op gg)
+- Live match
+- and so much more ...
