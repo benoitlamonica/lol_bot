@@ -1,54 +1,63 @@
-require('dotenv').config();
 const { default: axios } = require("axios");
-const { StringHelper } = require('./StringHelper');
-const { Utils } = require('./Utils');
-const VERSION = process.env.CLIENT_VERSION
+const VERSION = process.env.CLIENT_VERSION;
+const API_TOKEN = process.env.API_TOKEN;
 
 class ApiHandler {
 
-    static sendProperMessage = (msg, char) => {
-        let charProper = StringHelper.capitaliseFirstLetter(char);
-        axios.get(`https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/fr_FR/champion/${charProper}.json`).then(rep => {
-            let dataRep = rep.data;
-            let data = dataRep.data[charProper];
-            const reply = Utils.embed(data.id)
-                .setDescription(data.lore)
-                .setThumbnail(`http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/champion/${charProper}.png`)
-                .addField('\u200b', '\u200b')
-                .addField('Tips', ...data.allytips, true)
-                .addField('Jouer contre', ...data.enemytips, true)
-                .addField('Type', ...data.tags, true);
+    static getSpecificChar = async (char) => {
+        return await axios.get(`https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/fr_FR/champion/${char}.json`);
+    }
 
-            let lastSkin = "";
-            data.skins.forEach(skin => {
-                reply.setImage(`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${charProper}_${skin.num}.jpg`);
-                lastSkin = skin.name;
-            });
-            reply.addField('\u200b', '\u200b').addField('Dernier Skin :', lastSkin, false);
+    static getAllChar = async () => {
+        return await axios.get(`http://ddragon.leagueoflegends.com/cdn/${VERSION}/data/fr_FR/champion.json`);
+    }
 
-            msg.channel.send(reply);
+    static getCharImg = (char) => {
+        return `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/champion/${char}.png`
+    }
 
-        }).catch(err => {
-            console.log(err);
-            msg.reply("Ce personnage n'existe pas !")
+    static getSummoner = async (sum) => {
+        return await axios.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${sum}`, {
+            headers: {
+                "X-Riot-Token": API_TOKEN
+            }
         });
     }
 
-    static sendAllChar = (msg) => {
-        axios.get(`http://ddragon.leagueoflegends.com/cdn/${VERSION}/data/fr_FR/champion.json`).then(rep => {
-            let champObject = rep.data.data;
-            const reply = Utils.embed(`Tous les champions à ce jour (${VERSION})`);
-            let content = ''
-            for (let champName in champObject) {
-                content += `${champName} \n\n`;
+    static getSummonerCharMastery = async (sumId) => {
+        return await axios.get(`https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${sumId}`, {
+            headers: {
+                "X-Riot-Token": API_TOKEN
             }
-            reply.setDescription(content);
-            msg.channel.send(reply);
-        }).catch(err => {
-            console.log(err);
-            msg.reply(`Erreur lors de la récupérations des personnages : ${err}`)
         })
     }
+
+    static getBestCharBySummoner = async (sumName) => {
+        let sumInfo = (await ApiHandler.getSummoner(sumName)).data;
+        let sumBestMastery = (await ApiHandler.getSummonerCharMastery(sumInfo.id)).data[0];
+        let allChamp = (await ApiHandler.getAllChar()).data.data;
+
+        let [bestChampStr] = Object.keys(allChamp).filter(key => {
+            let champObj = allChamp[key];
+            return champObj.key == sumBestMastery.championId
+        });
+
+        let bestChamp = allChamp[bestChampStr];
+
+        return {
+            data: {
+                sumInfo: sumInfo,
+                bestChamp: {
+                    info: bestChamp,
+                    mastery: sumBestMastery.championLevel,
+                    points: sumBestMastery.championPoints,
+                    chest: sumBestMastery.chestGranted
+                },
+
+            }
+        }
+    }
+
 }
 
 exports.ApiHandler = ApiHandler;

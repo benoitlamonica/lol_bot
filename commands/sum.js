@@ -1,9 +1,9 @@
 const { CommandHandler } = require("../modules/CommandHandler")
 
 module.exports = {
-    name: 'help',
-    description: 'Liste de toutes les commandes',
+    name: 'sum',
+    description: 'Voir le profil d\'un Invocateur',
     execute: (msg, arg) => {
-        CommandHandler.sendHelpMessage(msg);
+        CommandHandler.sendSumInfo(msg, arg);
     }
 }
