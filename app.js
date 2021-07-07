@@ -1,12 +1,19 @@
 require('dotenv').config();
+
 const Express = require('express');
 const Discord = require('discord.js');
-const { StringHelper } = require('./modules/StringHelper');
-const { ApiHandler } = require('./modules/ApiHandler');
-const bot = new Discord.Client();
+const botCommands = require('./commands');
+
 const app = Express();
+const bot = new Discord.Client();
+bot.commands = new Discord.Collection();
+
 const PORT = process.env.PORT;
 const TOKEN = process.env.TOKEN;
+
+Object.keys(botCommands).forEach(key => {
+    bot.commands.set(botCommands[key].name, botCommands[key])
+});
 
 
 //Login to Discord API
@@ -19,15 +26,29 @@ app.listen(PORT, () => {
         console.log(`Logged as ${bot.user.tag} !`);
     })
     bot.on('message', msg => {
+
+        // Basics check
         if (msg.author.bot) return;
         if (!msg.content.startsWith("!lb")) return;
+
+        // Getting arg of command 1 => Cmd | 2 => Args
         let cmd = msg.content.split(" ")[1];
-        if (cmd === "all") {
-            ApiHandler.sendAllChar(msg);
+        let arg = msg.content.split(" ")[2];
+
+        // If command doesn't exist
+        if (!bot.commands.has(cmd)) {
+            msg.reply(`La commande ${cmd} n'existe pas !`);
+            bot.commands.get('help').execute(msg, arg);
             return;
+        };
+
+        // Execute command
+        try {
+            bot.commands.get(cmd).execute(msg, arg);
+        } catch (error) {
+            console.error(error);
+            msg.reply(`Erreur lors de l'exectution de la commande ${cmd} !`)
         }
-        let char = StringHelper.capitaliseFirstLetter(cmd);
-        ApiHandler.sendProperMessage(msg, char);
     })
 
 })
