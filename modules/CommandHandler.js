@@ -1,6 +1,6 @@
 const { ApiHandler } = require('./ApiHandler');
 const { StringHelper } = require('./StringHelper');
-const { Utils } = require('./Utils');
+const { Utils } = require('../vendor/utils/Utils');
 const CMD_PREFIX = process.env.COMMAND_PREFIX;
 
 class CommandHandler {
@@ -9,7 +9,9 @@ class CommandHandler {
         let reply = Utils.embed('Liste des commandes')
             .setThumbnail('https://media.melty.fr/article-3927430-so-f5/media.jpg')
             .setDescription(`Toutes les commandes doivent commencer par ${CMD_PREFIX}`)
-            .addField('\u200b', '\u200b');
+            .addField(
+                '------------------------------------------------------------------------',
+                '----------------------------------------------------------------------');
 
         let cmds = require('../commands');
         Object.keys(cmds).forEach(key => {
@@ -71,12 +73,23 @@ class CommandHandler {
     static sendSumInfo = (msg, sum) => {
         ApiHandler.getBestCharBySummoner(sum).then(rep => {
             let data = rep.data;
-            let reply = Utils.embed(data.sumInfo.name).setThumbnail(ApiHandler.getCharImg(data.bestChamp.info.id))
+            let ranking = "Aucuns";
+            let rankIcon = "NONE";
+
+            if (Object.keys(data.ranking).length !== 0) {
+                ranking = `${data.ranking.tier} ${data.ranking.rank}`;
+                rankIcon = data.ranking.tier
+            }
+
+            let reply = Utils.embed(data.sumInfo.name).setThumbnail(ApiHandler.getSummonerRankingImg(rankIcon))
+                .addField('Classement', ranking, false)
                 .addField('Meilleur champion', data.bestChamp.info.id, false)
                 .addField('Niveau de maitrise', data.bestChamp.mastery, true)
-                .addField('Points', data.bestChamp.points, true);
+                .addField('Points', data.bestChamp.points, true)
+                .setImage(ApiHandler.getCharImg(data.bestChamp.info.id));
 
             msg.channel.send(reply);
+
         }).catch(err => {
             console.log(err);
             msg.reply(`Invocateur ${sum} non trouvé ! 😅`);
