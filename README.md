@@ -1,6 +1,6 @@
 # LOL Discord Bot
 
-[![version](https://img.shields.io/badge/version-0.1.2-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.1.3-green.svg)](https://semver.org)
 
 ### This bot is used for characters info and more in the future.
 
@@ -14,7 +14,7 @@ Here's a list of command actually usable :
 | -------------------------- | -------------------------------------------- |
 | `!lb help`                 | Get a list of all commands                   |
 | `!lb all`                  | Get all character names                      |
-| `!lb find <charactername>` | Find the character in Lol API                |
+| `!lb find <charactername>` | Find the character by name                   |
 | `!lb sum <summonername>`   | Get summoner info                            |
 | `!lb sum rotation`         | Show the current rotation of free characters |
 
