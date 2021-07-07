@@ -1,13 +1,14 @@
 const { ApiHandler } = require('./ApiHandler');
 const { StringHelper } = require('./StringHelper');
 const { Utils } = require('./Utils');
+const CMD_PREFIX = process.env.COMMAND_PREFIX;
 
 class CommandHandler {
 
     static sendHelpMessage = (msg) => {
         let reply = Utils.embed('Liste des commandes')
             .setThumbnail('https://media.melty.fr/article-3927430-so-f5/media.jpg')
-            .setDescription('Toutes les commandes doivent commencer par "!lb"')
+            .setDescription(`Toutes les commandes doivent commencer par ${CMD_PREFIX}`)
             .addField('\u200b', '\u200b');
 
         let cmds = require('../commands');
