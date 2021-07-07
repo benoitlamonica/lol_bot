@@ -57,10 +57,10 @@ class CommandHandler {
     static sendAllChar = (msg) => {
         ApiHandler.getAllChar().then(rep => {
             let champObject = rep.data.data;
-            const reply = Utils.embed(`Tous les champions à ce jour (${VERSION})`);
+            const reply = Utils.embed(`Tous les champions à ce jour (${rep.data.version})`);
             let content = ''
             for (let champName in champObject) {
-                content += `${champName} \n\n`;
+                content += `${champName} \n ------------ \n`;
             }
             reply.setDescription(content);
             msg.channel.send(reply);
