@@ -1,6 +1,6 @@
 # LOL Discord Bot
 
-[![version](https://img.shields.io/badge/version-0.0.2-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.0.3-green.svg)](https://semver.org)
 
 ### This bot is used for characters info and more in the future.
 
@@ -8,7 +8,14 @@ To add the bot to your discord [click here](https://discord.com/api/oauth2/autho
 
 ### How does this bot works ?
 
-It's very simple, actually you just have to write `!lb charactername` to get some information about him.
-You can also do `!lb all` to see all actual champion that you can find !
+Here's a list of command actually usable :
+
+| Commande                   | Description                   |
+| -------------------------- | ----------------------------- |
+| `!lb find <charactername>` | Find the character in Lol API |
+| --                         | --                            |
+| `!lb all`                  | Get all character names       |
+| --                         | --                            |
+| `!lb help`                 | Get a list of all commands    |
 
 Some others features will come next :blush:
