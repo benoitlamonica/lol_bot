@@ -10,6 +10,7 @@ bot.commands = new Discord.Collection();
 
 const PORT = process.env.PORT;
 const TOKEN = process.env.TOKEN;
+const CMD_PREFIX = process.env.CMD_PREFIX;
 
 Object.keys(botCommands).forEach(key => {
     bot.commands.set(botCommands[key].name, botCommands[key])
@@ -29,7 +30,7 @@ app.listen(PORT, () => {
 
         // Basics check
         if (msg.author.bot) return;
-        if (!msg.content.startsWith("!lb")) return;
+        if (!msg.content.startsWith(CMD_PREFIX)) return;
 
         // Getting arg of command 1 => Cmd | 2 => Args
         let cmd = msg.content.split(" ")[1];
