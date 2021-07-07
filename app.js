@@ -10,7 +10,7 @@ bot.commands = new Discord.Collection();
 
 const PORT = process.env.PORT;
 const TOKEN = process.env.TOKEN;
-const CMD_PREFIX = process.env.CMD_PREFIX;
+const CMD_PREFIX = process.env.COMMAND_PREFIX;
 
 Object.keys(botCommands).forEach(key => {
     bot.commands.set(botCommands[key].name, botCommands[key])
