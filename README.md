@@ -10,12 +10,10 @@ To add the bot to your discord [click here](https://discord.com/api/oauth2/autho
 
 Here's a list of command actually usable :
 
-| Commande                   | Description                   |
+| Commands                   | Description                   |
 | -------------------------- | ----------------------------- |
 | `!lb find <charactername>` | Find the character in Lol API |
-| --                         | --                            |
 | `!lb all`                  | Get all character names       |
-| --                         | --                            |
 | `!lb help`                 | Get a list of all commands    |
 
 Some others features will come next :blush:
