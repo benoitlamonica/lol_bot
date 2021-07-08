@@ -1,6 +1,6 @@
 # LOL Discord Bot
 
-[![version](https://img.shields.io/badge/version-0.1.3-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.2.0-green.svg)](https://semver.org)
 
 ### This bot is used for characters info and more in the future.
 
@@ -26,3 +26,7 @@ Some others features will come next :blush:
 - Best runes by champion regards to all players (like op gg)
 - Live match
 - and so much more ...
+
+### Actually working on ?
+
+Actually i'm strugling with stats, but no matter to me I will survive ! 💪
