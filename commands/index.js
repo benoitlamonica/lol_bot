@@ -1,1 +1,1 @@
-module.exports={help:require('./help'),all:require('./all'),find:require('./find'),sum:require('./sum'),rotation:require('./rotation')}
+module.exports = { help: require('./content/help'), all: require('./content/all'), find: require('./content/find'), sum: require('./content/sum'), rotation: require('./content/rotation') }

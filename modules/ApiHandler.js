@@ -17,6 +17,36 @@ class ApiHandler {
         return `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/champion/${char}.png`
     }
 
+    static getCharIdRotation = async () => {
+        return await axios.get('https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations', {
+            headers: {
+                "X-Riot-Token": API_TOKEN
+            }
+        })
+    }
+
+    static getCharRotation = async () => {
+        let idChars = (await ApiHandler.getCharIdRotation()).data;
+        let allChars = (await ApiHandler.getAllChar()).data.data;
+        let freeCharForRegularPlayers = Object.keys(allChars).filter(key => {
+            let champObj = allChars[key];
+            return idChars.freeChampionIds.includes(parseInt(champObj.key))
+        })
+        let freeCharForNewPlayers = Object.keys(allChars).filter(key => {
+            let champObj = allChars[key];
+            return idChars.freeChampionIdsForNewPlayers.includes(parseInt(champObj.key))
+        })
+
+        const rtr = {
+            data: {
+                rPlayers: freeCharForRegularPlayers,
+                fPLayers: freeCharForNewPlayers
+            }
+        }
+
+        return rtr;
+    }
+
     static getSummoner = async (sum) => {
         return await axios.get(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${sum}`, {
             headers: {

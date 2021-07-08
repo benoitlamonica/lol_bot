@@ -1,4 +1,4 @@
-const { CommandHandler } = require("../modules/CommandHandler");
+const { CommandHandler } = require("../../modules/CommandHandler");
 
 
 module.exports = {

@@ -10,5 +10,6 @@ module.exports = {
         GRANDMASTER: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgCp6shDINspJbFSQvByXhUBHJacNuuuVmOg&usqp=CAU",
         CHALLENGER: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbXPmnb_tWJLqZ0J1dDcOG9zoSM1mcGVdV-w&usqp=CAU",
         NONE: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1-uKM6p2b3Lnrtr0P9u0icSsemRuFePK2ZA&usqp=CAU"
-    }
+    },
+    appIcon: 'https://media.melty.fr/article-3927430-so-f5/media.jpg'
 }
