@@ -9,7 +9,7 @@ class Utils {
         let newFile = file.replace(/\}/g, '');
         newFile = newFile.replace(/\n/g, '');
         newFile = newFile.replace(/ /g, "");
-        newFile += `,${cmdName}:require('./${cmdName}')}`;
+        newFile += `,${cmdName}:require('./content/${cmdName}')}`;
         return newFile;
     }
 }

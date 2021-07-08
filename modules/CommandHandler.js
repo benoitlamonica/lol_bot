@@ -1,13 +1,14 @@
 const { ApiHandler } = require('./ApiHandler');
 const { StringHelper } = require('./StringHelper');
 const { Utils } = require('../vendor/utils/Utils');
+const moduleData = require('./data');
 const CMD_PREFIX = process.env.COMMAND_PREFIX;
 
 class CommandHandler {
 
     static sendHelpMessage = (msg) => {
         let reply = Utils.embed('Liste des commandes')
-            .setThumbnail('https://media.melty.fr/article-3927430-so-f5/media.jpg')
+            .setThumbnail(moduleData.appIcon)
             .setDescription(`Toutes les commandes doivent commencer par ${CMD_PREFIX}`)
             .addField(
                 '------------------------------------------------------------------------',
@@ -57,7 +58,7 @@ class CommandHandler {
     static sendAllChar = (msg) => {
         ApiHandler.getAllChar().then(rep => {
             let champObject = rep.data.data;
-            const reply = Utils.embed(`Tous les champions à ce jour (${rep.data.version})`);
+            const reply = Utils.embed(`Tous les champions à ce jour (${rep.data.version})`).setThumbnail(moduleData.appIcon);
             let content = ''
             for (let champName in champObject) {
                 content += `${champName} \n ------------ \n`;
@@ -82,6 +83,7 @@ class CommandHandler {
             }
 
             let reply = Utils.embed(data.sumInfo.name).setThumbnail(ApiHandler.getSummonerRankingImg(rankIcon))
+                .addField('Niveau', data.sumInfo.summonerLevel, false)
                 .addField('Classement', ranking, false)
                 .addField('Meilleur champion', data.bestChamp.info.id, false)
                 .addField('Niveau de maitrise', data.bestChamp.mastery, true)
@@ -93,6 +95,22 @@ class CommandHandler {
         }).catch(err => {
             console.log(err);
             msg.reply(`Invocateur ${sum} non trouvé ! 😅`);
+        })
+    }
+
+    static sendCharRotation = (msg) => {
+        ApiHandler.getCharRotation().then(rep => {
+            let freeChampForRegularPlayers = rep.data.rPlayers;
+            let freeChampForNewPlayers = rep.data.fPLayers;
+            let reply = Utils.embed('Personnages gratuit cette semaine :').setThumbnail(moduleData.appIcon)
+                .addField('Pour les joueurs régulier :', freeChampForRegularPlayers.join(', '), false)
+                .addField('Pour les nouveaux joueurs :', freeChampForNewPlayers.join(', '), false);
+
+            msg.channel.send(reply);
+
+        }).catch(err => {
+            console.log(err);
+            msg.reply(`Une erreur est survenue lors de la recupération de la liste gratuite : ${err}`)
         })
     }
 }
